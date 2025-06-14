@@ -19,11 +19,6 @@ public class NotificationService {
     }
 
     public void consume(final NotificationDto notification) {
-        try {
-            System.out.println("notification received: \n" + objectMapper.writeValueAsString(notification));
             emailService.send(notification);
-        } catch (final JsonProcessingException e) {
-            log.error("Error while parse message {}", e.getMessage(), e);
-        }
     }
 }
