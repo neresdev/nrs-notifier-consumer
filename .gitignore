@@ -38,6 +38,8 @@ build/
 
 # Log file
 *.log
+**logs/**
+local-setup/kafka/logs/**
 
 # BlueJ files
 *.ctxt
