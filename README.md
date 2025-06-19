@@ -26,7 +26,7 @@ o versionamento/gerenciamento do java e do maven em um lugar só.
 
 - Clone o repositório
   ``` shell
-    git clone https://archive.apache.org/dist/kafka/3.4.0/kafka-3.4.0-src.tgz
+    git clone git@github.com:neresdev/nrs-notifier-consumer.git
   ```
 <br />
 
@@ -55,20 +55,23 @@ o versionamento/gerenciamento do java e do maven em um lugar só.
     cd /usr/local/kafka
     sudo bin/zookeeper-server-start.sh config/zookeeper.properties
 
-    # iniciar iniciar o servidor do kafka
+    # iniciar o primeiro broker kafka
     cd /usr/local/kafka
-    sudo bin/kafka-server-start.sh config/server.properties
-
-    # create kafka topic
+    sudo bin/kafka-server-start.sh local-setup/kafka/config/server.properties
+    
+    # iniciar o segundo broker kafka
     cd /usr/local/kafka
-    sudo bin/kafka-topics.sh --create --topic notifications --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
+    sudo bin/kafka-server-start.sh local-setup/kafka/config/server2.properties
+    
+    # criar o tópico kafka para enviar as notificações de e-mail
+    cd /usr/local/kafka
+    sudo bin/kafka-topics.sh --create --topic email-notifications --bootstrap-server localhost:9092 --partitions 2 --replication-factor 2
 
     # OPCIONAL - Criar um produtor para enviar as mensagens para serem consumidas
     cd /usr/local/kafka
-    sudo bin/kafka-console-producer.sh --topic notifications --bootstrap-server localhost:9092
-    
+    sudo bin/kafka-console-producer.sh --topic email-notifications --bootstrap-server localhost:9092
     # ao executar esse comando acima, irá abrir um prompt no terminal para escrever a mensagem, basta adicionar esse json
-    # {"type": "EMAIL","receiver": "seuemail@gmail.com","message": "teste message"}
+    # {"type": "EMAIL", "receiver": "<seu email>", "message": "teste mensagem"}
 ```
 
 ### Workflow (ou system design) da aplicação
