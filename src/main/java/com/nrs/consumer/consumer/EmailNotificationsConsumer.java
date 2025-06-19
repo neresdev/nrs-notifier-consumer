@@ -4,20 +4,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nrs.consumer.dto.NotificationDto;
 import com.nrs.consumer.email.EmailService;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.annotation.TopicPartition;
 import org.springframework.stereotype.Component;
 
-
 @Component
-public class MessageConsumer {
+public class EmailNotificationsConsumer {
 
     private final EmailService emailService;
 
-    public MessageConsumer(ObjectMapper objectMapper, EmailService emailService) {
+    public EmailNotificationsConsumer(ObjectMapper objectMapper, EmailService emailService) {
         this.emailService = emailService;
     }
 
-    @KafkaListener(topics = "${notification}")
+    @KafkaListener(topics = "${email.notifications.kafka.topic}", groupId = "${spring.kafka.group-id}")
     public void listen(final NotificationDto notification) {
         emailService.process(notification);
     }
