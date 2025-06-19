@@ -1,4 +1,4 @@
-package com.nrs.consumer.service;
+package com.nrs.consumer.email;
 
 import com.nrs.consumer.dto.NotificationDto;
 import org.slf4j.Logger;
@@ -24,7 +24,7 @@ public class EmailService {
     private String emailPassword;
 
 
-    public void send(final NotificationDto notificationDto) {
+    public void process(final NotificationDto notificationDto) {
         final var session = createSession();
         try {
             MimeMessage msg = new MimeMessage(session);
