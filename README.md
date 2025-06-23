@@ -52,20 +52,16 @@ o versionamento/gerenciamento do java e do maven em um lugar só.
 ### Iniciando o kafka
 ```shell
     # iniciar zookeeper
-    cd /usr/local/kafka
-    sudo bin/zookeeper-server-start.sh config/zookeeper.properties
+    sudo /usr/local/kafka/bin/zookeeper-server-start.sh /usr/local/kafka/config/zookeeper.properties
 
     # iniciar o primeiro broker kafka
-    cd /usr/local/kafka
-    sudo bin/kafka-server-start.sh local-setup/kafka/config/server.properties
+    sudo /usr/local/kafka/bin/kafka-server-start.sh /usr/local/kafka/config/server.properties
     
     # iniciar o segundo broker kafka
-    cd /usr/local/kafka
-    sudo bin/kafka-server-start.sh local-setup/kafka/config/server2.properties
+    sudo /usr/local/kafka/bin/kafka-server-start.sh /usr/local/kafka/config/server2.properties
     
     # criar o tópico kafka para enviar as notificações de e-mail
-    cd /usr/local/kafka
-    sudo bin/kafka-topics.sh --create --topic email-notifications --bootstrap-server localhost:9092 --partitions 2 --replication-factor 2
+    sudo /usr/local/kafka/bin/kafka-topics.sh --create --topic email-notifications --bootstrap-server localhost:9092 --partitions 2 --replication-factor 2
 
     # OPCIONAL - Criar um produtor para enviar as mensagens para serem consumidas
     cd /usr/local/kafka
